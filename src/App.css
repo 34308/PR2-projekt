@@ -1,7 +1,19 @@
+
 .App {
   text-align: center;
 }
+.Body{
 
+  background: #3c3f41;
+
+}
+.Cards{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -11,6 +23,13 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+.text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+  font-size: 70px;
 }
 
 .App-header {
