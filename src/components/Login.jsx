@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import raven from  "./ravenCom.png";
 import "./StyleLogin.css";
 import React from "react";
 import {
@@ -10,7 +9,6 @@ import {
     MDBCardImage,
     MDBRow,
     MDBCol,
-    MDBIcon,
     MDBInput
 }
     from 'mdb-react-ui-kit';
