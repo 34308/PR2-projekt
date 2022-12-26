@@ -1,7 +1,13 @@
 Home 
 
-![alt text](https://github.com/34308/PR2-projekt/blob/etap-3/home.png))
+![alt text](https://github.com/34308/PR2-projekt/blob/etap-4/home.png)
 
 
 Login
-![alt text](https://github.com/34308/PR2-projekt/blob/etap-3/login.png)
+![alt text](https://github.com/34308/PR2-projekt/blob/etap-4/login.png)
+
+Register
+![alt text](https://github.com/34308/PR2-projekt/blob/etap-4/register.png)
+
+Details
+![alt text](https://github.com/34308/PR2-projekt/blob/etap-4/Details.png)
