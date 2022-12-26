@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import React from "react";
 import Navbar from "./components/Navbar";
-import foot from "./components/foot";
 import {Outlet} from "react-router-dom";
+import Foot from "./components/Foot";
 function App() {
     return (
         <div>
@@ -12,9 +12,7 @@ function App() {
                 <Navbar/>
             </div>
             <Outlet></Outlet>
-            <div>
-                {foot}
-            </div>
+            <Foot></Foot>
         </div>
     );
 }

@@ -3,14 +3,17 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 import raven from './ravenCom.png'
 import React from "react";
 function NavigationBar() {
     const navigate = useNavigate();
     const  login = () =>{
-        navigate('/login')
+        navigate('/signin')
+    }
+    const  Register = () =>{
+        navigate('/signup')
     }
         return (
             <div style={{paddingTop:65}}>
@@ -35,7 +38,10 @@ function NavigationBar() {
                             />
                             <Button variant="outline-light">Search</Button>
                         </Form>
-                        <Button onClick={login} variant="outline-light">Login</Button>
+                        <div >
+                            <Button style={{marginRight:20}} onClick={login} variant="outline-light">Login</Button>
+                            <Button onClick={Register} variant="outline-light">Register</Button>
+                        </div>
                     </Container>
                 </Navbar>
             </div>

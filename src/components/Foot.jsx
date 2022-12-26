@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 
-function foot() {
+export default function Foot() {
     return (
         <MDBFooter bgColor='dark' className='text-center text-lg-start text-muted'>
                 <MDBContainer className='text-center text-md-start mt-5'>
@@ -36,4 +36,3 @@ function foot() {
         </MDBFooter>
     );
 }
-export default foot()

@@ -14,7 +14,13 @@ import {
     MDBInput
 }
     from 'mdb-react-ui-kit';
+import {useNavigate} from "react-router-dom";
+
 export default function Login() {
+    const navigate = useNavigate();
+    const  SignUp = () =>{
+        navigate('/signup')
+    }
     return (
         <MDBContainer className="my-5">
 
@@ -36,7 +42,8 @@ export default function Login() {
                             <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
 
                             <MDBBtn className="mb-4 px-5" color='dark' size='lg'>Login</MDBBtn>
-
+                            <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Or create new one:</h5>
+                            <MDBBtn onClick={SignUp} className="mb-4 px-5" color='dark' size='lg'>Register</MDBBtn>
                         </MDBCardBody>
                     </MDBCol>
 
