@@ -1,9 +1,6 @@
-
-import React from "react";
-import {useNavigate} from "react-router-dom";
 import Header from "./Header";
 import {Card} from "react-bootstrap";
-import {MDBCardTitle} from "mdb-react-ui-kit";
+
 
 import star from './star.png'
 import {Divider} from "@mui/material";
@@ -52,10 +49,10 @@ export default function Details(){
 
                  <div  style={{  padding: '20px', borderRadius: '25px', width:'85%', height:'100%', marginTop:50, flexDirection:'column',alignItems:"center", display:'flex',justifyContent:'center', marginBottom:50 , background:"white"}}>
                      <div style={{ alignItems:'center',display: 'flex'}}>
-                        <img src=  {film[0].photo}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
+                        <img alt={'?'} src={film[0].photo}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
                         <text style={{fontSize:22, width:'40%',marginLeft:'40px',marginTop:'-90px'}}>{film[0].opis}</text>
                      </div>
-                    <div style={{  }}>
+                    <div >
                         <div style={{flexDirection:'row', display: 'flex'}}>
                             <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Director: </text>
                             <text style={{fontSize:20,}}>{film[0].rezyser}</text>

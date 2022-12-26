@@ -1,6 +1,3 @@
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import MovieView from "./MovieView";
 import React from "react";
 
 export default function Header(){
@@ -11,7 +8,7 @@ export default function Header(){
                 <div className="container">
                     <h1 style={{display:"flex", justifyContent:"center",borderWidth:'6px', borderStyle:"solid"}} className="display-1">Baza filmów</h1>
                     <p style={{display:"flex", fontSize:23, textDecoration:"underline",justifyContent:"center"}} className="lead">Każdy film pod słońcem</p>
-                    <a></a>
+
                 </div>
             </div>
 
