@@ -19,14 +19,14 @@ function NavigationBar() {
             <div style={{paddingTop:65}}>
                 <Navbar fixed={"top"} bg="dark" variant="dark">
                     <Container>
-                        <Navbar.Brand href="/">
+                        <Navbar.Brand  href="/">
                             <img
                                 alt=""
                                 src={raven}
-                                width="80"
-                                height="40"
+                                width="90"
+                                height="50"
                                 className="d-inline-block align-top"
-                            />{' '}
+                            />
                             Raven Corp.
                         </Navbar.Brand>
                         <Form className="d-flex">

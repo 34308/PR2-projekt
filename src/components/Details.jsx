@@ -3,9 +3,10 @@ import {Card} from "react-bootstrap";
 
 
 import star from './star.png'
-import {Divider} from "@mui/material";
+import {Divider, Table, TableCell, TableRow} from "@mui/material";
 const film=[
     {
+        title:'Avatar',
         opis:'Pandorę znów napada wroga korporacja w poszukiwaniu cennych minerałów.Pandorę znów napada wroga korporacja w poszukiwaniu cennych minerałów. Jack i Neytiri Jack i Neytiri wraz z rodziną zmuszeni są opuścić wioskę i szukać pomocy u innych plemion zamieszkujących planetę. ',
         rezyser:'J cameron',
         gatunek:'Sci-Fi',
@@ -42,48 +43,31 @@ const comments=[
 export default function Details(){
 
     return(
-        <div>
-        <Header></Header>
-            <div style={{fontSize:20, display:"flex",justifyContent:'center',alignItems:"center"} }>
-
-
-                 <div  style={{  padding: '20px', borderRadius: '25px', width:'85%', height:'100%', marginTop:50, flexDirection:'column',alignItems:"center", display:'flex',justifyContent:'center', marginBottom:50 , background:"white"}}>
-                     <div style={{ alignItems:'center',display: 'flex'}}>
-                        <img alt={'?'} src={film[0].photo}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
-                        <text style={{fontSize:22, width:'40%',marginLeft:'40px',marginTop:'-90px'}}>{film[0].opis}</text>
-                     </div>
-                    <div >
-                        <div style={{flexDirection:'row', display: 'flex'}}>
-                            <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Director: </text>
-                            <text style={{fontSize:20,}}>{film[0].rezyser}</text>
-                         </div>
-                        <div style={{flexDirection:'row', display: 'flex'}}>
-                            <text style={{fontSize:20,color:"grey",fontWeight:'bold', }}>Genre: </text>
-                            <text style={{fontSize:20,width:'40%'}}>{film[0].gatunek}</text>
-                        </div>
-                        <div style={{flexDirection:'row', display: 'flex'}}>
-                            <text style={{color:"grey",fontWeight:'bold' }}>Production: </text>
-                            <text style={{}}>{film[0].produkcja}</text>
-                        </div>
-                        <div style={{flexDirection:'row', display: 'flex'}}>
-                            <text style={{color:"grey",fontWeight:'bold'}}>Premier: </text>
-                            <text style={{}}>{film[0].premiera}</text>
-                        </div>
-                        <div style={{flexDirection:'row', display: 'flex'}}>
-                            <text style={{color:"grey",fontWeight:'bold',}}>Awards: </text>
-                            <text style={{}}>{film[0].nagrody}</text>
-                        </div>
-                     </div>
-                     <>
-                         <div style={{padding:90,borderBottom: 'solid'}}>
-                             <text style={{fontSize:50}}>COMMENTS</text>
-
-                         </div>
-
-                         {comments.map((u,i)=>{
+        <div  >
+            <Header></Header>
+            <div style={{display:"flex",justifyContent:'center', marginBottom:50 , }}>
+                <div style={{display:"flex",flexDirection:"column", padding: '20px', borderRadius: '25px', width:'85%', height:'100%', marginTop:50,alignItems:"center",justifyContent:'center', marginBottom:50 , background:"white"}}>
+                    <Table style={{  }}>
+                        <TableRow>
+                           <img alt={'?'} src={film[0].photo}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
+                            <TableCell align={"left"} ><text style={{textAlign:'left',fontSize:22}}>{film[0].opis}</text></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell rowSpan={1} />
+                            <TableRow style={{display:"flex", flexDirection:"column"}}>
+                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Director: </text> <text style={{fontSize:20,}}>{film[0].rezyser}</text></TableCell>
+                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Genre: </text> <text style={{fontSize:20,}}>{film[0].gatunek}</text></TableCell>
+                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Production: </text> <text style={{fontSize:20,}}>{film[0].produkcja}</text></TableCell>
+                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Premier: </text> <text style={{fontSize:20,}}>{film[0].premiera}</text></TableCell>
+                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Awards: </text> <text style={{fontSize:20,}}>{film[0].nagrody}</text></TableCell>
+                            </TableRow>
+                        </TableRow>
+                    </Table>
+                    <div style={{ width:'85%',textAlign:"center", fontSize:60, padding: '20px', borderRadius: '25px', height:'100%', marginTop:50,alignSelf:"center",justifyContent:'center', marginBottom:50 , background:"white"}}>Comments</div>
+                    <div style={{ width:'85%',background:"white",padding: '20px', borderRadius: '25px', marginBottom:50 }}>
+                        {comments.map((u,i)=>{
                             return(
-                                <Card style={{width:'60%', padding:20,marginTop:50}}>
-
+                                <Card style={{padding:20,marginTop:20}}>
                                     <Card.Body>
                                         <Card.Title>{u.user}</Card.Title>
                                         <Divider style={{borderBottom:"solid"}}/>
@@ -92,15 +76,12 @@ export default function Details(){
                                             <Card.Text> {u.grade}/5</Card.Text>
                                         </div>
                                         <Card.Text> {u.comment}</Card.Text>
-
                                     </Card.Body>
                                 </Card>
                             );
-                         })}
-                     </>
-
-                 </div>
-
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );
