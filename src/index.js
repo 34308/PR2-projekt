@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Details from "./components/Details";
 import SignUP from "./components/SignUp";
+import AddFilm from "./components/AddFilm";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -20,6 +21,7 @@ root.render(
                     <Route path="signin" element={<Login/>}/>
                     <Route path="signup" element={<SignUP/>}/>
                     <Route path="details" element={<Details/>}/>
+                    <Route path="add" element={<AddFilm/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
