@@ -11,3 +11,6 @@ Register
 
 Details
 ![alt text](https://github.com/34308/PR2-projekt/blob/etap-4/Details.png)
+
+add
+![alt text](https://github.com/34308/PR2-projekt/blob/etap-4/add.png)
