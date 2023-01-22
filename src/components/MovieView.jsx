@@ -6,96 +6,44 @@ import star from './star.png'
 import "./card.css"
 import {useNavigate} from "react-router-dom";
 import {Card} from "react-bootstrap";
-const films=[
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-    {
-        title:'Pocahotnas',
-        production:'1721',
-        image:'https://i.insider.com/5b75d39304f1622b008b5281?width=700',
-        rating:8.5,
-        description:'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris porta libero nec rutrum eleifend. Donec mattis ut diam a laoreet. Maecenas a dignissim lacus, ut convallis est. Suspendisse mattis dapibus lectus. Aliquam eget enim maximus, convallis nisi facilisis, blandit est.',
-    },
-]
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {usePhrase} from "./reducer";
+
 
 function MovieView() {
     const navigate = useNavigate();
-    const  Detail = () =>{
-        navigate('/details')
+    const phrase=usePhrase();
+    const [movies, setMovies]=useState([]);
+    const [downloaded, hasDownload]=useState(false);
+    const  Detail = (id) =>{
+        navigate('/details',{ state: { id: id } })
     }
-
+    useEffect(()=>{
+        if(!downloaded){
+            hasDownload(true);
+            axios({
+                method: 'get',
+                url: 'https://at.usermd.net/api/movies',
+            }).then((response) => {
+                setMovies(response.data)
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+    },[])
     return (
-        films.map((u,i)=>{
+        movies.filter(movie=>movie.title.includes(phrase)).map((u,i)=>{
             return(
-                <Card  text={"white"} bg={"dark"} >
-                    <CardActionArea onClick={Detail}>
-                        <Card.Img src={u.image} />
+                <Card style={{
+                    width: '300px',
+                    height: '450px',
+                }} key={i} text={"white"} bg={"dark"} >
+                    <CardActionArea onClick={()=>Detail(u.id)}>
+                        <Card.Img style={{height:285,width:200,marginTop:20}} src={u.image} />
                         <Card.Body>
-                            <Card.Title > {u.title}</Card.Title>
-                            <Card.Subtitle>{u.production}r</Card.Subtitle>
-                            <Card.Text> <Card.Img  src={star} style={{width: 15 , height: 16, paddingBottom:"3px"}} /> {u.rating}</Card.Text>
-                            <Card.Text>{u.description}</Card.Text>
+                            <Card.Title >{u.title}</Card.Title>
+                            <Card.Text >{u.content.substring(0,70)+"..."}</Card.Text>
                         </Card.Body>
                     </CardActionArea>
                 </Card>

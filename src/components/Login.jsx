@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./StyleLogin.css";
-import React from "react";
+import React, {useState} from "react";
 import {
     MDBBtn,
     MDBContainer,
@@ -13,13 +13,53 @@ import {
 }
     from 'mdb-react-ui-kit';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {decodeToken} from "react-jwt";
+
+
 
 export default function Login() {
+    const [name,setName]=useState('');
+    const [password,setPassword]=useState('');
+    const handleName = (event) => {
+        // 👇 Get input value from "event"
+        setName(event.target.value);
+    };
     const navigate = useNavigate();
     const  SignUp = () =>{
         navigate('/signup')
     }
-    return (
+
+    const handlePassword = (event) => {
+        // 👇 Get input value from "event"
+        setPassword(event.target.value);
+    };
+
+
+function login() {
+    axios({
+        method: 'post',
+        url: 'https://at.usermd.net/api/user/auth',
+        data: {
+            login:''+name,
+            password:''+password,
+        }
+    }).then((response) => {
+        localStorage.setItem('token',response.data.token);
+        localStorage.setItem('loginId',response.data.userId);
+        localStorage.setItem('login',name);
+        localStorage.setItem('isLogged','true');
+        navigate('/')
+
+    }).catch((error) => {
+        console.log(error);
+    });
+
+
+}
+
+
+return (
         <MDBContainer className="my-5">
 
             <MDBCard>
@@ -36,10 +76,10 @@ export default function Login() {
                             </div>
                             <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
 
-                            <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg"/>
-                            <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
+                            <MDBInput onChange={handleName} wrapperClass='mb-4' label='Login' id='formControlLg' type='email' size="lg"/>
+                            <MDBInput onChange={handlePassword} wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
 
-                            <MDBBtn className="mb-4 px-5" color='dark' size='lg'>Login</MDBBtn>
+                            <MDBBtn onClick={login} className="mb-4 px-5" color='dark' size='lg'>Login</MDBBtn>
                             <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Or create new one:</h5>
                             <MDBBtn onClick={SignUp} className="mb-4 px-5" color='dark' size='lg'>Register</MDBBtn>
                         </MDBCardBody>

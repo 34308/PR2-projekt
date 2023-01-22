@@ -4,20 +4,11 @@ import {Card} from "react-bootstrap";
 
 import star from './star.png'
 import {Divider, Table, TableCell, TableRow} from "@mui/material";
-const film=[
-    {
-        title:'Avatar',
-        opis:'Pandorę znów napada wroga korporacja w poszukiwaniu cennych minerałów.Pandorę znów napada wroga korporacja w poszukiwaniu cennych minerałów. Jack i Neytiri Jack i Neytiri wraz z rodziną zmuszeni są opuścić wioskę i szukać pomocy u innych plemion zamieszkujących planetę. ',
-        rezyser:'J cameron',
-        gatunek:'Sci-Fi',
-        produkcja:'usa',
-        premiera:"14 grudnia 2022 (Światowa premiera) 16 grudnia 2022 (Polska premiera kinowa)",
-        nagrody:'Film dostał 1 nagrodę i 21 nominacji',
-        bigphoto:'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/7E8516F750AB36D7E89B3808BCDCB6F8B262D7329621C44181D925DA744C10FF/scale?width=1200&aspectRatio=1.78&format=jpeg',
-        photo:"https://fwcdn.pl/fpo/81/78/558178/8047434.6.jpg"
-    }
-    ,
-]
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {useLocation, useNavigate} from "react-router-dom";
+import {decodeToken, isExpired} from "react-jwt";
+
 const comments=[
     {
         user:'ktos2',
@@ -41,33 +32,71 @@ const comments=[
     },
 ]
 export default function Details(){
+    const navigate = useNavigate();
+    const [movie,setMovie]=useState([]);
+    const [isLoggedAsAdmin,setLoggedAsAdmin]=useState(false);
+    const {state} = useLocation();
+    const [downloaded,hasDownload]=useState(false);
+    const { id } = state; // Read values passed on state
+    let tk=localStorage.getItem('token');
+
+    useEffect(()=>{
+        if(!downloaded){
+            if(!isExpired(tk)){
+                setLoggedAsAdmin(decodeToken(localStorage.getItem('token')).isAdmin)
+            }else{
+                setLoggedAsAdmin(false);
+            }
+            hasDownload(true);
+            axios({
+                method: 'get',
+                url: 'https://at.usermd.net/api/movies/'+id,
+            }).then((response) => {
+                console.log(response.data);
+                setMovie(response.data)
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+
+    },[downloaded,id,tk])
+
+    function Delete() {
+        if(!isExpired(tk)){
+            axios({
+                method: 'delete',
+                url: 'https://at.usermd.net/api/movie/'+movie.id,
+            }).then((response) => {
+                console.log(response.data);
+                setMovie(response.data)
+            }).catch((error) => {
+                console.log(error);
+            });
+        }else{
+            alert.show('Sesja wygasła')
+        }
+        navigate('/');
+    }
 
     return(
-        <div  >
+        <div >
             <Header></Header>
             <div style={{display:"flex",justifyContent:'center', marginBottom:50 , }}>
+
                 <div style={{display:"flex",flexDirection:"column", padding: '20px', borderRadius: '25px', width:'85%', height:'100%', marginTop:50,alignItems:"center",justifyContent:'center', marginBottom:50 , background:"white"}}>
-                    <Table style={{  }}>
-                        <TableRow>
-                           <img alt={'?'} src={film[0].photo}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
-                            <TableCell align={"left"} ><text style={{textAlign:'left',fontSize:22}}>{film[0].opis}</text></TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell rowSpan={1} />
-                            <TableRow style={{display:"flex", flexDirection:"column"}}>
-                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Director: </text> <text style={{fontSize:20,}}>{film[0].rezyser}</text></TableCell>
-                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Genre: </text> <text style={{fontSize:20,}}>{film[0].gatunek}</text></TableCell>
-                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Production: </text> <text style={{fontSize:20,}}>{film[0].produkcja}</text></TableCell>
-                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Premier: </text> <text style={{fontSize:20,}}>{film[0].premiera}</text></TableCell>
-                                <TableCell align={"left"} > <text style={{fontSize:20, color:"grey",fontWeight:'bold'}}>Awards: </text> <text style={{fontSize:20,}}>{film[0].nagrody}</text></TableCell>
-                            </TableRow>
+                    {isLoggedAsAdmin && <button onClick={Delete} type="button" className="btn btn-danger">Delete</button>}
+                    <text style={{fontSize:42,textDecoration:"underline"}}>{movie.title}</text>
+                    <Table style={{ justifyContent:'center',alignItems:"center" }}>
+                        <TableRow >
+                           <img alt={'?'} src={movie.image}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
+                            <TableCell align={"left"} ><text style={{textAlign:'left',fontSize:22}}>{movie.content}</text></TableCell>
                         </TableRow>
                     </Table>
                     <div style={{ width:'85%',textAlign:"center", fontSize:60, padding: '20px', borderRadius: '25px', height:'100%', marginTop:50,alignSelf:"center",justifyContent:'center', marginBottom:50 , background:"white"}}>Comments</div>
                     <div style={{ width:'85%',background:"white",padding: '20px', borderRadius: '25px', marginBottom:50 }}>
                         {comments.map((u,i)=>{
                             return(
-                                <Card style={{padding:20,marginTop:20}}>
+                                <Card  key={i} style={{padding:20,marginTop:20}}>
                                     <Card.Body>
                                         <Card.Title>{u.user}</Card.Title>
                                         <Divider style={{borderBottom:"solid"}}/>
