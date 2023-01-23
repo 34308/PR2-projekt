@@ -10,7 +10,7 @@ import {
     MDBRow, MDBCol, MDBCardImage
 }
     from 'mdb-react-ui-kit';
-import axios, * as other from 'axios';
+import axios from 'axios';
 
 function App() {
     const [name,setName]=useState('');
@@ -34,7 +34,6 @@ function App() {
         setEmail(event.target.value);
     };
     function Register() {
-
         if(secondPassword=== firstPassword){
 
             axios({

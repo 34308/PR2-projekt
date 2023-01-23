@@ -1,8 +1,5 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import {  CardActionArea } from '@mui/material';
-import star from './star.png'
 import "./card.css"
 import {useNavigate} from "react-router-dom";
 import {Card} from "react-bootstrap";
@@ -26,31 +23,33 @@ function MovieView() {
                 method: 'get',
                 url: 'https://at.usermd.net/api/movies',
             }).then((response) => {
+                console.log('1',response.data);
                 setMovies(response.data)
             }).catch((error) => {
                 console.log(error);
             });
         }
-    },[])
-    return (
-        movies.filter(movie=>movie.title.includes(phrase)).map((u,i)=>{
-            return(
-                <Card style={{
-                    width: '300px',
-                    height: '450px',
-                }} key={i} text={"white"} bg={"dark"} >
-                    <CardActionArea onClick={()=>Detail(u.id)}>
-                        <Card.Img style={{height:285,width:200,marginTop:20}} src={u.image} />
-                        <Card.Body>
-                            <Card.Title >{u.title}</Card.Title>
-                            <Card.Text >{u.content.substring(0,70)+"..."}</Card.Text>
-                        </Card.Body>
-                    </CardActionArea>
-                </Card>
-            );
-        })
 
-    );
+    },[downloaded])
+    return (
+            movies.filter(movie => movie?.title?.toLowerCase().includes(phrase)).map((u,i)=>{
+                return(
+                    <Card style={{
+                        width: '300px',
+                        height: '450px',
+                    }} key={i} text={"white"} bg={"dark"} >
+                        <CardActionArea onClick={()=>Detail(u.id)}>
+                            <Card.Img style={{height:285,width:200,marginTop:20}} src={u.image} />
+                            <Card.Body>
+                                <Card.Title >{u.title}</Card.Title>
+                                <Card.Text >{u.content.substring(0,70)+"..."}</Card.Text>
+                            </Card.Body>
+                        </CardActionArea>
+                    </Card>
+                );
+            })
+
+        );
 }
 
 export default MovieView

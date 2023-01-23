@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import raven from './ravenCom.png'
 import React, { useEffect, useState} from "react";
 import Nav from 'react-bootstrap/Nav';
@@ -41,7 +41,6 @@ function NavigationBar() {
     }
 
     function Logout() {
-
         let userId=decodeToken(localStorage.getItem('token')).userId
         console.log('userid:',userId);
         axios({
@@ -84,10 +83,10 @@ function NavigationBar() {
                         />
                         Raven Corp.
                     </Navbar.Brand>
-                    <Form className="d-flex">
+                    {useLocation().pathname=== '/' && <Form className="d-flex">
                         <input onChange={event => searchHandler(event)} onClick={Search} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                       <Button onClick={Search} variant="outline-light">Search</Button>
-                    </Form>
+                        <Button onClick={Search} variant="outline-light">Search</Button>
+                    </Form>}
                     <div style={{display:'flex' ,justifyContent:'space-evenly'}}>
                         {(logged==='false') &&
                             <div>
