@@ -16,7 +16,6 @@ import { phraseAction} from "./reducer";
 function NavigationBar() {
     const [seekedPhrase,setPhrase]=useState('');
     const navigate = useNavigate();
-    const [showlist,setShowList]=useState(false);
     const name=localStorage.getItem('login');
     const logged = localStorage.getItem('isLogged');
     const  login = () =>{
@@ -34,7 +33,6 @@ function NavigationBar() {
     function home() {
         navigate('/')
     }
-
 
     function goToAddFilm() {
         navigate('/add')

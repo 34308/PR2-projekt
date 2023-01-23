@@ -38,6 +38,7 @@ export default function AddFilm(){
             }
         }).then((response) => {
             console.log(response);
+            navigate('/');
 
         }).catch((error) => {
             console.log(error);
