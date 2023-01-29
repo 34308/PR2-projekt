@@ -13,8 +13,9 @@ import axios from "axios";
 import { phraseAction} from "./reducer";
 
 
-function NavigationBar() {
+function NavigationBar(props) {
     const [seekedPhrase,setPhrase]=useState('');
+
     const navigate = useNavigate();
     const name=localStorage.getItem('login');
     const logged = localStorage.getItem('isLogged');
@@ -67,9 +68,23 @@ function NavigationBar() {
         setPhrase(event.target.value)
     }
 
+    function ChangeTheme() {
+        if(localStorage.getItem('darkmode') ==='true' ){
+            console.log(localStorage.getItem('darkmode'));
+
+            localStorage.setItem('darkmode','false')
+        }
+        else{
+            console.log(localStorage.getItem('darkmode'));
+            localStorage.setItem('darkmode','true')
+        }
+        window.location.reload();
+
+    }
+
     return (
-        <div style={{paddingTop:65}}>
-            <Navbar fixed={"top"} bg="dark" variant="dark">
+        <div style={{paddingTop:75}}>
+            <Navbar fixed={"top"} bg={props.mode} variant={props.mode}>
                 <Container>
                     <Navbar.Brand  onClick={home}>
                         <img
@@ -82,14 +97,15 @@ function NavigationBar() {
                         Raven Corp.
                     </Navbar.Brand>
                     {useLocation().pathname=== '/' && <Form className="d-flex">
-                        <input onChange={event => searchHandler(event)} onClick={Search} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <Button onClick={Search} variant="outline-light">Search</Button>
+                        <input  onChange={event => searchHandler(event)} onClick={Search}  className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <Button onClick={Search} variant={props.outline}>Search</Button>
                     </Form>}
                     <div style={{display:'flex' ,justifyContent:'space-evenly'}}>
                         {(logged==='false') &&
                             <div>
-                                <Button style={{marginRight:20}} onClick={login} variant="outline-light">Login</Button>
-                                <Button style={{marginRight:20}} onClick={Register} variant="outline-light">Register</Button>
+                                <Button style={{marginRight:20}} onClick={login} variant={props.outline}>Login</Button>
+                                <Button style={{marginRight:20}} onClick={Register} variant={props.outline}>Register</Button>
+                                <Button style={{marginRight:20}} onClick={ChangeTheme} variant={props.outline}>ChangeTheme</Button>
                             </div>
                         }
 

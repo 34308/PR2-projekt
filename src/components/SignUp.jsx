@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 
 import {
-    MDBBtn,
     MDBContainer,
     MDBCard,
     MDBCardBody,
@@ -11,6 +10,7 @@ import {
 }
     from 'mdb-react-ui-kit';
 import axios from 'axios';
+import {AxiosError} from "axios";
 
 function App() {
     const [name,setName]=useState('');
@@ -34,8 +34,11 @@ function App() {
         setEmail(event.target.value);
     };
     function Register() {
-        if(secondPassword=== firstPassword){
-
+        if(email.length===0|| name.length===0||firstPassword.length===0||secondPassword.length===0) {
+            alert('You Need to fill all Informations');
+            return;
+        }
+        if( secondPassword === firstPassword){
             axios({
                 method: 'post',
                 url: 'https://at.usermd.net/api/user/create/',
@@ -46,9 +49,14 @@ function App() {
                 }
             }).then((response) => {
                 console.log(response);
-            }).catch((error) => {
+            }).catch((error:AxiosError) => {
+                alert(error.response.data)
                 console.log(error);
             });
+        }
+        else{
+            alert('Passwords are not identical');
+
         }
     }
 
@@ -69,7 +77,7 @@ function App() {
                             <MDBInput onChange={handleEmail} wrapperClass='mb-4' label='Your Email' size='lg' id='form2' type='email'/>
                             <MDBInput onChange={handleFPassword} wrapperClass='mb-4' label='Password' size='lg' id='form3' type='password'/>
                             <MDBInput onChange={handleSPassword} wrapperClass='mb-4' label='Repeat your password' size='lg' id='form4' type='password'/>
-                            <MDBBtn onClick={()=>Register()} className="mb-4 px-5" color='dark' size='lg'>Register</MDBBtn>
+                            <button onClick={Register} type="button" className="btn btn-dark">Register</button>
                         </MDBCardBody>
                     </MDBCol>
 

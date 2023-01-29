@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdb-react-ui-kit";
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdb-react-ui-kit";
 import React, {useState} from "react";
 import axios from "axios";
 
@@ -23,6 +23,10 @@ export default function AddFilm(){
     };
 
     function addFilm() {
+        if(title.length===0 || description.length === 0 || image.length === 0 ) {
+            alert('Wszystkie pola muszą być wypełnione');
+            return;
+        }
         axios({
             method: 'post',
             url: 'https://at.usermd.net/api/movies',
@@ -41,6 +45,7 @@ export default function AddFilm(){
             navigate('/');
 
         }).catch((error) => {
+            alert(error.results.data)
             console.log(error);
         });
     }
@@ -64,7 +69,8 @@ export default function AddFilm(){
                             <MDBInput onChange={event =>nameHandler(event)} wrapperClass='mb-4' label='Film Name' id='formName' type='name' size="lg"/>
                             <MDBInput onChange={event =>descriptionHandler(event)} wrapperClass='mb-4' label='Description' id='formDesc' type='text' size="lg"/>
                             <MDBInput onChange={event => imageHandler(event)} wrapperClass='mb-4' label='link to image' id='formImg' type='url' size="lg"/>
-                            <MDBBtn onClick={addFilm} className="mb-4 px-5" color='dark' size='lg'>Add new film</MDBBtn>
+                            <button onClick={addFilm} type="button" className="btn btn-dark">Add Film</button>
+
 
                         </MDBCardBody>
                     </MDBCol>

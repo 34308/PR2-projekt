@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {  CardActionArea } from '@mui/material';
-import "./card.css"
 import {useNavigate} from "react-router-dom";
 import {Card} from "react-bootstrap";
 import {useEffect, useState} from "react";
@@ -8,13 +7,14 @@ import axios from "axios";
 import {usePhrase} from "./reducer";
 
 
-function MovieView() {
+function MovieView(props) {
     const navigate = useNavigate();
     const phrase=usePhrase();
     const [movies, setMovies]=useState([]);
     const [downloaded, hasDownload]=useState(false);
+    const [isDark, setDark]=useState(true);
     const  Detail = (id) =>{
-        navigate('/details',{ state: { id: id } })
+        navigate('/details',{ state: { id: id ,theme:props.mode} })
     }
     useEffect(()=>{
         if(!downloaded){
@@ -23,23 +23,32 @@ function MovieView() {
                 method: 'get',
                 url: 'https://at.usermd.net/api/movies',
             }).then((response) => {
-                console.log('1',response.data);
                 setMovies(response.data)
             }).catch((error) => {
+                alert(error.results.data);
                 console.log(error);
             });
-        }
 
-    },[downloaded])
+        }
+        if(props.mode==='dark'){
+            setDark(true);
+        }else{
+            setDark(false);
+        }
+    },[downloaded,props.mode])
+
     return (
             movies.filter(movie => movie?.title?.toLowerCase().includes(phrase)).map((u,i)=>{
                 return(
                     <Card style={{
+                        margin:10,
                         width: '300px',
                         height: '450px',
-                    }} key={i} text={"white"} bg={"dark"} >
-                        <CardActionArea onClick={()=>Detail(u.id)}>
-                            <Card.Img style={{height:285,width:200,marginTop:20}} src={u.image} />
+                    }} key={i} text={isDark? 'light':'dark'} bg={props.mode} >
+                        <CardActionArea style={{justifyContent: 'center',
+                            alignItems: 'center',
+                            flex: 1}} onClick={()=>Detail(u.id)}>
+                            <Card.Img style={{alignSelf:"center", height:285,width:200,marginLeft:'14%',marginTop:20}} src={u.image} />
                             <Card.Body>
                                 <Card.Title >{u.title}</Card.Title>
                                 <Card.Text >{u.content.substring(0,70)+"..."}</Card.Text>
@@ -51,5 +60,4 @@ function MovieView() {
 
         );
 }
-
 export default MovieView

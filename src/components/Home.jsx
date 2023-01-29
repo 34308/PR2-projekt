@@ -1,21 +1,26 @@
 import Row from "react-bootstrap/Row";
 import MovieView from "./MovieView";
-import React from "react";
 import Header from "./Header";
+import {useOutletContext} from "react-router-dom";
+
+
 
 export default function Home(){
+    const [mode] = useOutletContext();
+    console.log(mode)
     return(
-        <div>
+        <ul>
             <Header/>
-        <div className="Cards">
-            <Row style={{display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',}} xl={5} xs={2} md={4} className="gy-lg-4">
-                {
-                    <MovieView />
-                }
-            </Row>
-        </div>
-        </div>
+            <ul  className="Cards">
+                <Row style={{display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',}} className="gy-lg-4">
+                        <MovieView mode={mode}></MovieView >
+                </Row>
+            </ul>
+        </ul>
     );
+
+
 }
+

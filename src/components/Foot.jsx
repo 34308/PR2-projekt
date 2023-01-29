@@ -3,7 +3,7 @@ import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-k
 
 export default function Foot() {
     return (
-        <MDBFooter bgColor='dark' className='text-center text-lg-start text-muted'>
+        <MDBFooter  bgColor='dark' className='text-center text-lg-start text-muted'>
                 <MDBContainer className='text-center text-md-start mt-5'>
                     <MDBRow className='mt-3'>
                         <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
@@ -12,7 +12,7 @@ export default function Foot() {
                                 Raven Corp.
                             </h6>
                             <p>
-                                Great company crated by a great man.
+                                Great company created by a great man.
                             </p>
                         </MDBCol>
 

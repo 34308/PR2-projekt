@@ -1,8 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./StyleLogin.css";
 import React, {useState} from "react";
 import {
-    MDBBtn,
     MDBContainer,
     MDBCard,
     MDBCardBody,
@@ -13,10 +11,7 @@ import {
 }
     from 'mdb-react-ui-kit';
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
-import {decodeToken} from "react-jwt";
-
-
+import axios, {AxiosError} from "axios";
 
 export default function Login() {
     const [name,setName]=useState('');
@@ -49,12 +44,11 @@ function login() {
         localStorage.setItem('loginId',response.data.userId);
         localStorage.setItem('login',name);
         localStorage.setItem('isLogged','true');
-        navigate('/')
-
-    }).catch((error) => {
-        console.log(error);
+        window.location.href='/';
+    }).catch((error : AxiosError) => {
+        alert(error.response.data)
+        console.log(error.response);
     });
-
 
 }
 
@@ -79,15 +73,13 @@ return (
                             <MDBInput onChange={handleName} wrapperClass='mb-4' label='Login' id='formControlLg' type='email' size="lg"/>
                             <MDBInput onChange={handlePassword} wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
 
-                            <MDBBtn onClick={login} className="mb-4 px-5" color='dark' size='lg'>Login</MDBBtn>
+                            <button onClick={login} type="button" className="btn btn-dark">Login</button>
                             <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Or create new one:</h5>
-                            <MDBBtn onClick={SignUp} className="mb-4 px-5" color='dark' size='lg'>Register</MDBBtn>
+                            <button onClick={SignUp} type="button" className="btn btn-dark">Register</button>
                         </MDBCardBody>
                     </MDBCol>
-
                 </MDBRow>
             </MDBCard>
-
         </MDBContainer>
     );
 }

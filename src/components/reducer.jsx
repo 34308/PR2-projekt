@@ -1,6 +1,6 @@
 import SharedReducer from 'shared-reducer-hooks';
 const initialState = {
-    phrase:' ',
+    phrase:'',
 };
 const [mapState, dispatch] = SharedReducer((state = initialState, action) => {
     switch(action.type) {
@@ -11,6 +11,7 @@ const [mapState, dispatch] = SharedReducer((state = initialState, action) => {
     }
 });
 export const usePhrase = mapState((state) => state.phrase);
+
 
 export const phraseAction = (ph) => dispatch({ type: 'phrase' ,str:ph});
 

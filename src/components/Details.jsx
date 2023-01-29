@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import {decodeToken, isExpired} from "react-jwt";
-
+import   './LightStyle.css'
 const comments=[
     {
         user:'ktos2',
@@ -37,7 +37,8 @@ export default function Details(){
     const [isLoggedAsAdmin,setLoggedAsAdmin]=useState(false);
     const {state} = useLocation();
     const [downloaded,hasDownload]=useState(false);
-    const { id } = state; // Read values passed on state
+    const [isDark,setDark]=useState(false);
+    const { id } = state.id; // Read values passed on state
     let tk=localStorage.getItem('token');
 
     useEffect(()=>{
@@ -50,7 +51,7 @@ export default function Details(){
             hasDownload(true);
             axios({
                 method: 'get',
-                url: 'https://at.usermd.net/api/movies/'+id,
+                url: 'https://at.usermd.net/api/movies/'+state.id,
             }).then((response) => {
                 console.log(response.data);
                 setMovie(response.data)
@@ -58,8 +59,11 @@ export default function Details(){
                 console.log(error);
             });
         }
+        console.log(localStorage.getItem('darkmode'))
+        localStorage.getItem('darkmode')==='true'? setDark(true) : setDark(false);
 
-    },[downloaded,id,tk])
+
+    },[downloaded,id,tk,state.theme,state.id])
 
     function Delete() {
         if(!isExpired(tk)){
@@ -81,15 +85,14 @@ export default function Details(){
     return(
         <div >
             <Header></Header>
-            <div style={{display:"flex",justifyContent:'center', marginBottom:50 , }}>
-
-                <div style={{display:"flex",flexDirection:"column", padding: '20px', borderRadius: '25px', width:'85%', height:'100%', marginTop:50,alignItems:"center",justifyContent:'center', marginBottom:50 , background:"white"}}>
+            <div style={{ display:"flex",justifyContent:'center', marginBottom:50 , }}>
+                <div className={isDark ? 'detailStyleD':'detailStyleW'}>
                     {isLoggedAsAdmin && <button onClick={Delete} type="button" className="btn btn-danger">Delete</button>}
-                    <text style={{fontSize:42,textDecoration:"underline"}}>{movie.title}</text>
+                    <text className={isDark ? 'titleStyleD':'titleStyleW'}>{movie.title}</text>
                     <Table style={{ justifyContent:'center',alignItems:"center" }}>
                         <TableRow >
                            <img alt={'?'} src={movie.image}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
-                            <TableCell align={"left"} ><text style={{textAlign:'left',fontSize:22}}>{movie.content}</text></TableCell>
+                            <TableCell align={"left"} ><text className={isDark ? 'textStyleD':'textStyleW'}>{movie.content}</text></TableCell>
                         </TableRow>
                     </Table>
                     <div style={{ width:'85%',textAlign:"center", fontSize:60, padding: '20px', borderRadius: '25px', height:'100%', marginTop:50,alignSelf:"center",justifyContent:'center', marginBottom:50 , background:"white"}}>Comments</div>
@@ -115,3 +118,4 @@ export default function Details(){
         </div>
     );
 }
+
