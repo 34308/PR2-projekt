@@ -4,7 +4,7 @@ import {Card} from "react-bootstrap";
 
 import star from './star.png'
 import {Divider, Table, TableCell, TableRow} from "@mui/material";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import {decodeToken, isExpired} from "react-jwt";
@@ -84,14 +84,16 @@ export default function Details(){
 
     return(
         <div >
+
             <Header></Header>
+
             <div style={{ display:"flex",justifyContent:'center', marginBottom:50 , }}>
                 <div className={isDark ? 'detailStyleD':'detailStyleW'}>
                     {isLoggedAsAdmin && <button onClick={Delete} type="button" className="btn btn-danger">Delete</button>}
                     <text className={isDark ? 'titleStyleD':'titleStyleW'}>{movie.title}</text>
                     <Table style={{ justifyContent:'center',alignItems:"center" }}>
                         <TableRow >
-                           <img alt={'?'} src={movie.image}style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
+                           <img alt={'?'} src={movie.image} style={{marginLeft:'70px',marginTop:'40px' ,width:300,height:450}}  ></img>
                             <TableCell align={"left"} ><text className={isDark ? 'textStyleD':'textStyleW'}>{movie.content}</text></TableCell>
                         </TableRow>
                     </Table>

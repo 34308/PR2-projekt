@@ -11,6 +11,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {decodeToken, isExpired} from "react-jwt";
 import axios from "axios";
 import { phraseAction} from "./reducer";
+import { BsSun,BsMoon} from "react-icons/bs";
+
+
 
 
 function NavigationBar(props) {
@@ -105,10 +108,11 @@ function NavigationBar(props) {
                             <div>
                                 <Button style={{marginRight:20}} onClick={login} variant={props.outline}>Login</Button>
                                 <Button style={{marginRight:20}} onClick={Register} variant={props.outline}>Register</Button>
-                                <Button style={{marginRight:20}} onClick={ChangeTheme} variant={props.outline}>ChangeTheme</Button>
-                            </div>
-                        }
 
+                            </div>
+
+                        }
+                        <Button style={{marginRight:20}} onClick={ChangeTheme} color={props.mode==='dark'? "white":"black"}  variant={props.outline}>{props.mode==='dark'?<BsSun />:<BsMoon />}</Button>
                         {(logged==='true') &&
                             <Nav>
                                 <NavDropdown
