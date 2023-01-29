@@ -2,7 +2,7 @@
     background-color: #3c3f41;
 }
 .detailStyleW{
-    display:flex;
+    display: flex;
     flex-direction:column;
     padding: 20px;
     border-radius: 25px;

@@ -57,7 +57,7 @@ function NavigationBar(props) {
             console.log(error);
         });
 
-        localStorage.setItem('Token','');
+        localStorage.setItem('token','');
         localStorage.setItem('isLogged','false');
         navigate('/')
     }
