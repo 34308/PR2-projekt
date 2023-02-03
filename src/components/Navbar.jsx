@@ -120,10 +120,10 @@ function NavigationBar(props) {
                                     title={name}
                                     menuVariant="dark"
                                 >
-                                    <NavDropdown.Item onClick={goToAddFilm} href="#action/3.1">Add movie</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={goToAddFilm} >Add movie</NavDropdown.Item>
 
                                     <NavDropdown.Divider />
-                                    <NavDropdown.Item onClick={Logout} href="#action/3.2">Logout</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={Logout} >Logout</NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>
                         }

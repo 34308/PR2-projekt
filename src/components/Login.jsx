@@ -45,7 +45,7 @@ function login() {
         localStorage.setItem('login',name);
         localStorage.setItem('isLogged','true');
         window.location.href='/';
-    }).catch((error : AxiosError) => {
+    }).catch((error) => {
         alert(error.response.data)
         console.log(error.response);
     });

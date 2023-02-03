@@ -11,8 +11,11 @@ import {
     from 'mdb-react-ui-kit';
 import axios from 'axios';
 import {AxiosError} from "axios";
+import {useNavigate} from "react-router-dom";
 
 function App() {
+    const navigate = useNavigate();
+
     const [name,setName]=useState('');
     const [email,setEmail]=useState('');
     const [firstPassword,setFPassword]=useState('');
@@ -49,7 +52,9 @@ function App() {
                 }
             }).then((response) => {
                 console.log(response);
-            }).catch((error:AxiosError) => {
+                alert("Zarejestrowano poprawnie");
+                navigate('/');
+            }).catch((error) => {
                 alert(error.response.data)
                 console.log(error);
             });
